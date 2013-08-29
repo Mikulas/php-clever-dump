@@ -1,0 +1,17 @@
+{
+    "name": "mikulas/clever_dump",
+    "require-dev": {
+        "nette/tester": "~0.9.3"
+    },
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Mikulas",
+            "email": "rullaf@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+
+    }
+}
