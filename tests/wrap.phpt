@@ -11,3 +11,8 @@ foreach (array(
 ) as $test) {
 	Assert::same($test, d($test));
 }
+
+
+Assert::error(function() {
+	Assert::same(1, d(d(1)));
+}, E_USER_ERROR);

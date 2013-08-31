@@ -93,7 +93,8 @@ function d($d)
 	} while (TRUE);
 
 	$var = $d instanceof Closure ? 'Closure' : var_export($d, TRUE);
-	echo trim($arg) . ' = ' . $var . "\n";
+	$arg = $duplicate ? 'Unresolvable' : trim($arg);
+	echo "$arg = $var\n";
 
 	return $d;
 }
