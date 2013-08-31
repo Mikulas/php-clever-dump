@@ -25,6 +25,17 @@ d(sum(1, 1));
 ```
 
 
+### Nette Integration
+
+```
+public function renderDefault()
+{
+	bd($this->context);
+}
+```
+![screen shot 2013-08-31 at 11 09 17 am](https://f.cloud.github.com/assets/192200/1062026/22590a34-121d-11e3-83b3-04f26ac60fef.png)
+
+
 ### Caveats
 
 ```php
