@@ -1,5 +1,6 @@
 {
     "name": "mikulas/clever_dump",
+    "description": "Php diagnostic utility which dumps argument along with its value.",
     "require-dev": {
         "nette/tester": "~0.9.3"
     },
@@ -11,7 +12,7 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {
-
+    "autoload": {
+        "files": ["src/CleverDump.php"]
     }
 }
