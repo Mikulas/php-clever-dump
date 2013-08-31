@@ -26,4 +26,11 @@ d(sum(1, 1));
 
 ### Caveats
 
-It has problems with the `d` being called multiple times on the same line. This is because php stack trace returns only line, not call column. It can be bypassed for simple usage, but will always usually fail on weird edge cases. It's best to use one `d` per line now.
+It has problems with the `d` being called multiple times on the same line. This is because php stack trace returns only line, not call column. It can be bypassed for simple usage, but will always usually fail on edge cases. It's best to use one `d` per line now.
+
+The impossible case:
+```php
+$a = 'X';
+$b = 'X';
+$chance = mt_rand(0, 1) ? d($a) : d($b);
+```

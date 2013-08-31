@@ -43,6 +43,12 @@ Assert::output(function() {
 	d( function() { return 'foo';} );
 }, "function() { return 'foo';} = Closure");
 
+// not first function on line
 Assert::output(function() {
-	d( d('test') );
-}, "'test' = 'test'\nd('test') = 'test");
+	echo ""; abs(1); $a = 'x'; function(){}; for($i = 0; $i<-1;++$i){}; d('a');
+}, "'a' = 'a'");
+
+// not last function on line
+Assert::output(function() {
+	d('a'); echo ""; abs(1); $a = 'x'; function(){}; for($i = 0; $i<-1;++$i){};
+}, "'a' = 'a'");

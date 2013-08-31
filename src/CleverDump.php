@@ -9,33 +9,28 @@ function d($d)
 	$source = file_get_contents($trace['file']);
 	$tokens = token_get_all($source);
 
-	if ($lastCall['trace']['file'] === $trace['file']
-	 && $lastCall['trace']['line'] === $trace['line']
-	 && $lastCall['trace']['args'] !== $trace['args']
-	) {
-		// multiple calls to __FUNCTION__ on the same line,
-		// skip to end of previous call in source
-		$ptr = $lastCall['ptr'];
-		$line = $hitline;
-
-	} else {
-		$ptr = -1;
-		$line = 0;
-		while ($line < $hitline) {
-			$ptr++;
-			$token = $tokens[$ptr];
-			if (!is_array($token)) {
-				continue;
-			}
-			$line = $token[2];
+	$ptr = -1;
+	$line = 0;
+	while ($line < $hitline) {
+		$ptr++;
+		$token = $tokens[$ptr];
+		if (!is_array($token)) {
+			continue;
 		}
+		$line = $token[2];
 	}
 
 	// find function call
-	do {
+	while (TRUE) {
 		$token = $tokens[$ptr];
 		$ptr++;
-	} while (!is_array($token) || $token[0] !== T_STRING && strToLower($token[1]) !== strToLower(__FUNCTION__));
+		if (!is_array($token)) {
+			continue;
+		}
+		if ($token[0] === T_STRING && strToLower($token[1]) === strToLower(__FUNCTION__)) {
+			break;
+		}
+	};
 
 	// skip whitespace
 	while ($token[0] === T_WHITESPACE) {
@@ -45,8 +40,7 @@ function d($d)
 
 	// if function call, parenthesis must follow
 	if ($tokens[$ptr] !== '(') {
-		var_dump($tokens[$ptr]);
-		throw new Exception;
+		throw new Exception; // this should not happen
 	}
 	$ptr++;
 
@@ -72,6 +66,5 @@ function d($d)
 	$var = $d instanceof Closure ? 'Closure' : var_export($d, TRUE);
 	echo trim($arg) . ' = ' . $var . "\n";
 
-	$lastCall = array('trace' => $trace, 'ptr' => $ptr);
 	return $d;
 }
