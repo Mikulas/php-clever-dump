@@ -17,3 +17,15 @@ Assert::error(function() {
 		d(d('a'));
 	}, "Unresolvable = 'a'\nUnresolvable = 'a'");
 }, E_USER_ERROR);
+
+Assert::error(function() {
+	Assert::output(function() {
+		sum(d(1), d(2));
+	}, "Unresolvable = 1\nUnresolvable = 2");
+}, E_USER_ERROR);
+
+
+
+function sum() {
+	return array_sum(func_get_args());
+}
